@@ -10,6 +10,7 @@ public class PermissionMapper {
     public Permission toDomain(PermissionEntity entity) {
         if (entity == null) return null;
         Permission permission = new Permission();
+        permission.setId(entity.getId());
         permission.setName(entity.getName());
         return permission;
     }
@@ -17,6 +18,7 @@ public class PermissionMapper {
     public PermissionEntity toEntity(Permission permission) {
         if (permission == null) return null;
         return PermissionEntity.builder()
+                .id(permission.getId())
                 .name(permission.getName())
                 .build();
     }

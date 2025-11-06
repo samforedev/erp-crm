@@ -8,6 +8,7 @@ import com.sam.authservice.infraestructure.persistence.repository.IUserJpaReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 

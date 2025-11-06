@@ -17,6 +17,7 @@ public class UserMapper {
         if (domainUser == null) return null;
 
         return UserEntity.builder()
+                .id(domainUser.getId())
                 .username(domainUser.getUsername())
                 .email(domainUser.getEmail())
                 .password(domainUser.getPassword())
@@ -30,6 +31,11 @@ public class UserMapper {
     public User toDomain(UserEntity entity) {
         if (entity == null) return null;
         User user = new User();
+        user.setId(entity.getId());
+        user.setUsername(entity.getUsername());
+        user.setEmail(entity.getEmail());
+        user.setPassword(entity.getPassword());
+        user.setActive(entity.isActive());
         user.setRoles(entity.getRoles().stream()
                 .map(_roleMapper::toDomain)
                 .collect(Collectors.toSet()));

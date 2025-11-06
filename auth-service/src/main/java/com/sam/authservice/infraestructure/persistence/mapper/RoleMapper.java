@@ -16,6 +16,7 @@ public class RoleMapper {
     public Role toDomain(RoleEntity entity) {
         if (entity == null) return null;
         Role role = new Role();
+        role.setId(entity.getId());
         role.setName(entity.getName());
         role.setPermissions(entity.getPermissions().stream()
                 .map(_permissionMapper::toDomain)
@@ -26,6 +27,7 @@ public class RoleMapper {
     public RoleEntity toEntity(Role role) {
         if (role == null) return null;
         return RoleEntity.builder()
+                .id(role.getId())
                 .name(role.getName())
                 .permissions(role.getPermissions().stream()
                         .map(_permissionMapper::toEntity)

@@ -30,4 +30,15 @@ public abstract class BaseEntity {
     private Instant updatedAt;
 
     private boolean isDeleted = false;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }
