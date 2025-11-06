@@ -8,5 +8,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  erp-crm-AuthService:
+    image: samfordev/erp-crm-auth-service:0.0.1
+    container_name: erp-crm-auth-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-develop
+    env_file:
+      - ./docker.env
+
 volumes:
   postgres_data:
