@@ -8,9 +8,7 @@ import com.sam.authservice.infraestructure.persistence.repository.IUserJpaReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,12 +22,6 @@ public class UserAdapter implements IUserRepositoryPort {
         UserEntity entity = _userMapper.toEntity(user);
         UserEntity savedEntity = _userJpaRepository.save(entity);
         return _userMapper.toDomain(savedEntity);
-    }
-
-    @Override
-    public Optional<User> findById(UUID id) {
-        return _userJpaRepository.findById(id)
-                .map(_userMapper::toDomain);
     }
 
     @Override

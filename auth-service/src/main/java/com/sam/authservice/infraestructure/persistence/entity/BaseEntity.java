@@ -29,7 +29,7 @@ public abstract class BaseEntity {
     @Column(nullable = false)
     private Instant updatedAt;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @PrePersist
     protected void onCreate() {

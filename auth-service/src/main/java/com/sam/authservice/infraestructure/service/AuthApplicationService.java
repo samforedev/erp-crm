@@ -3,7 +3,9 @@ package com.sam.authservice.infraestructure.service;
 import com.sam.authservice.application.dto.LoginRequest;
 import com.sam.authservice.application.dto.RegisterRequest;
 import com.sam.authservice.application.dto.TokenResponse;
-import com.sam.authservice.application.mapper.AuthDtoMapper;
+import com.sam.authservice.application.dto.common.Error;
+import com.sam.authservice.application.dto.common.Response;
+import com.sam.authservice.application.mapper.UserDtoMapper;
 import com.sam.authservice.application.service.IAuthApplicationService;
 import com.sam.authservice.domain.model.User;
 import com.sam.authservice.domain.port.IJwtServicePort;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +34,7 @@ public class AuthApplicationService implements IAuthApplicationService {
     private final IUserRepositoryPort _userRepository;
     private final IRoleJpaRepository _roleRepository;
     private final RoleMapper _roleMapper;
-    private final AuthDtoMapper _authDtoMapper;
+    private final UserDtoMapper _authDtoMapper;
     private final PasswordEncoder _passwordEncoder;
     private final AuthenticationManager _authenticationManager;
     private final IJwtServicePort _jwtService;
@@ -41,40 +44,55 @@ public class AuthApplicationService implements IAuthApplicationService {
 
     @Override
     @Transactional
-    public UUID registerUser(RegisterRequest request) {
-        User newUser = _authDtoMapper.toDomain(request);
-        RoleEntity roleEntity = _roleRepository.findByName(request.initialRoleName())
-                .orElseThrow(() -> new RuntimeException("ROLE_NOT_FOUND"));
+    public Response<UUID> registerUser(RegisterRequest request) {
+        try {
+            Optional<User> userFound = _userRepository.findByEmail(request.email());
+            if (userFound.isPresent())
+                return Response.error(Error.of("already_exists", "The user already exists"));
 
-        newUser.setRoles(Collections.singleton(_roleMapper.toDomain(roleEntity)));
-        String hashedPassword = _passwordEncoder.encode(request.password());
-        newUser.setPassword(hashedPassword);
+            Optional<RoleEntity> roleEntity = _roleRepository.findByName(request.initialRoleName());
+            if (roleEntity.isEmpty())
+                return Response.error(Error.of("not_found", "The role does not exist"));
 
-        User userRegister = _userRepository.save(newUser);
-        return userRegister.getId();
+            User newUser = _authDtoMapper.toDomain(request);
+            newUser.setRoles(Collections.singleton(_roleMapper.toDomain(roleEntity.get())));
+            String hashedPassword = _passwordEncoder.encode(request.password());
+            newUser.setPassword(hashedPassword);
+            User userRegister = _userRepository.save(newUser);
+
+            return Response.success(userRegister.getId(), "User created successfully");
+
+        } catch (Exception ex) {
+            return Response.error(Error.of("Exception", ex.getMessage()));
+        }
     }
 
     @Override
-    public TokenResponse loginUser(LoginRequest request) {
-        Authentication authentication = _authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.usernameOrEmail(),
-                        request.password()
-                )
-        );
-        String username = authentication.getName();
-        User domainUser = _userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("USER_NOT_FOUND"));
+    public Response<TokenResponse> loginUser(LoginRequest request) {
+        try {
+            Authentication authentication = _authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.usernameOrEmail(),
+                            request.password()
+                    )
+            );
+            String username = authentication.getName();
+            User domainUser = _userRepository.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("USER_NOT_FOUND"));
 
-        String jwt = _jwtService.generateToken(domainUser);
-        long expirationSeconds = TimeUnit.MILLISECONDS.toSeconds(this.jwtExpiration);
+            String jwt = _jwtService.generateToken(domainUser);
+            long expirationSeconds = TimeUnit.MILLISECONDS.toSeconds(this.jwtExpiration);
 
-        return new TokenResponse(jwt, "Bearer", expirationSeconds);
+            return Response.success(
+                    new TokenResponse(jwt, "Bearer", expirationSeconds), "Login successful");
+
+        } catch (Exception ex) {
+            return Response.error(Error.of("Exception", ex.getMessage()));
+        }
     }
 
     @Override
     public User getUserDetailsForToken(UUID userId) {
-        return _userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("USER_NOT_FOUND"));
+        return null;
     }
 }

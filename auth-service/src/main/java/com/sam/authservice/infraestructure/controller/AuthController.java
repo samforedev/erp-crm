@@ -23,8 +23,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UUID> register(@RequestBody RegisterRequest request) {
-        UUID registeredUser = _authApplicationService.registerUser(request);
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+        //UUID registeredUser = _authApplicationService.registerUser(request);
+       // return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
