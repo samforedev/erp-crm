@@ -21,6 +21,7 @@ import java.util.Set;
 public class UserEntity extends BaseEntity {
     private String firstName;
     private String lastName;
+    @Enumerated(EnumType.STRING)
     private DocumentType documentType;
     private String documentNumber;
     private LocalDate birthDate;

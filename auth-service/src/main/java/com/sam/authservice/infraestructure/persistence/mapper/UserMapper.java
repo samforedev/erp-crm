@@ -18,6 +18,13 @@ public class UserMapper {
 
         return UserEntity.builder()
                 .id(domainUser.getId())
+                .firstName(domainUser.getFirstName())
+                .lastName(domainUser.getLastName())
+                .documentType(domainUser.getDocumentType())
+                .documentNumber(domainUser.getDocumentNumber())
+                .birthDate(domainUser.getBirthDate())
+                .phoneNumber(domainUser.getPhoneNumber())
+                .jobTitle(domainUser.getJobTitle())
                 .username(domainUser.getUsername())
                 .email(domainUser.getEmail())
                 .password(domainUser.getPassword())
@@ -32,6 +39,13 @@ public class UserMapper {
         if (entity == null) return null;
         User user = new User();
         user.setId(entity.getId());
+        user.setFirstName(entity.getFirstName());
+        user.setLastName(entity.getLastName());
+        user.setDocumentType(entity.getDocumentType());
+        user.setDocumentNumber(entity.getDocumentNumber());
+        user.setBirthDate(entity.getBirthDate());
+        user.setPhoneNumber(entity.getPhoneNumber());
+        user.setJobTitle(entity.getJobTitle());
         user.setUsername(entity.getUsername());
         user.setEmail(entity.getEmail());
         user.setPassword(entity.getPassword());
