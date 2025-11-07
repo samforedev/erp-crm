@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record UserMinimalResponse(
         UUID id,
-        String username,
+        String firstName,
         String email,
         Role role,
         String jobTitle

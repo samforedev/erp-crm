@@ -14,5 +14,5 @@ public abstract class BaseModel {
     private UUID id;
     private Instant createdAt;
     private Instant updatedAt;
-    private boolean isDeleted;
+    private boolean deleted;
 }

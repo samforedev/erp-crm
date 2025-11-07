@@ -22,26 +22,22 @@ public class UserDtoMapper {
 
         return User.builder()
                 .people(people)
-                .username(request.username())
-                .email(request.email())
-                .password(request.password())
-                .role(request.role())
+                .phoneNumber(request.phoneNumber())
                 .jobTitle(request.jobTitle())
-                .status(Status.ACTIVE)
+                .status(null)
                 .build();
     }
 
     public UserResponse toResponse(User domainUser) {
         return new UserResponse(
                 domainUser.getId(),
-                domainUser.getUsername(),
-                domainUser.getEmail(),
-                domainUser.getRole(),
-                domainUser.getJobTitle(),
-                domainUser.getStatus(),
-                domainUser.getLastLogin(),
-                domainUser.getCreatedAt(),
                 domainUser.getPeople(),
+                null,
+                domainUser.getPhoneNumber(),
+                domainUser.getJobTitle(),
+                null,
+                domainUser.getStatus(),
+                domainUser.getCreatedAt(),
                 domainUser.isDeleted()
         );
     }
@@ -49,9 +45,9 @@ public class UserDtoMapper {
     public UserMinimalResponse toMinimalResponse(User domainUser) {
         return new UserMinimalResponse(
                 domainUser.getId(),
-                domainUser.getUsername(),
-                domainUser.getEmail(),
-                domainUser.getRole(),
+                domainUser.getPeople().firstName(),
+                null,
+                null,
                 domainUser.getJobTitle()
         );
     }

@@ -11,9 +11,7 @@ public record UserCreationRequest(
         DocumentType documentType,
         String documentNumber,
         LocalDate birthDate,
-        String username,
-        String email,
-        String password,
-        Role role,
-        String jobTitle
+        String phoneNumber,
+        String jobTitle,
+        String status
 ) { }

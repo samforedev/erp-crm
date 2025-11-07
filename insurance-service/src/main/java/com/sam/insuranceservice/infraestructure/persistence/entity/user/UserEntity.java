@@ -20,22 +20,10 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 public class UserEntity extends BaseEntity {
-
     @Embedded
     private BasePeopleEmbeddable people;
-
-    @Column(unique = true, nullable = false)
-    private String username;
-
-    @Column(unique = true, nullable = false)
-    private String email;
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String phoneNumber;
     private String jobTitle;
-    private Instant lastLogin;
-
     @Enumerated(EnumType.STRING)
     private Status status;
 }

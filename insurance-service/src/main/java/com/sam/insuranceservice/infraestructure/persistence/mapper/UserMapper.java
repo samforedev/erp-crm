@@ -10,21 +10,17 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     private final CommonsMapper _commonsMapper;
 
-    public UserEntity toJpaEntity(User domainUser) {
+    public UserEntity toEntity(User domainUser) {
         if (domainUser == null) return null;
         return UserEntity.builder()
                 .id(domainUser.getId())
+                .people(_commonsMapper.toEmbeddable(domainUser.getPeople()))
+                .phoneNumber(domainUser.getPhoneNumber())
+                .jobTitle(domainUser.getJobTitle())
+                .status(domainUser.getStatus())
                 .createdAt(domainUser.getCreatedAt())
                 .updatedAt(domainUser.getUpdatedAt())
-                .isDeleted(domainUser.isDeleted())
-                .people(_commonsMapper.toEmbeddable(domainUser.getPeople()))
-                .username(domainUser.getUsername())
-                .email(domainUser.getEmail())
-                .password(domainUser.getPassword())
-                .role(domainUser.getRole())
-                .jobTitle(domainUser.getJobTitle())
-                .lastLogin(domainUser.getLastLogin())
-                .status(domainUser.getStatus())
+                .deleted(domainUser.isDeleted())
                 .build();
     }
 
@@ -32,17 +28,13 @@ public class UserMapper {
         if (entity == null) return null;
         User user = new User();
         user.setId(entity.getId());
+        user.setPeople(_commonsMapper.toDomainRecord(entity.getPeople()));
+        user.setPhoneNumber(entity.getPhoneNumber());
+        user.setJobTitle(entity.getJobTitle());
+        user.setStatus(entity.getStatus());
         user.setCreatedAt(entity.getCreatedAt());
         user.setUpdatedAt(entity.getUpdatedAt());
         user.setDeleted(entity.isDeleted());
-        user.setPeople(_commonsMapper.toDomainRecord(entity.getPeople()));
-        user.setUsername(entity.getUsername());
-        user.setEmail(entity.getEmail());
-        user.setPassword(entity.getPassword());
-        user.setRole(entity.getRole());
-        user.setJobTitle(entity.getJobTitle());
-        user.setLastLogin(entity.getLastLogin());
-        user.setStatus(entity.getStatus());
 
         return user;
     }

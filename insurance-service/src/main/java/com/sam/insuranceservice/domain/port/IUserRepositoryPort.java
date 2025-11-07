@@ -7,9 +7,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface IUserRepositoryPort {
-    // Crud Base
     User save(User user);
     Optional<User> findById(UUID id);
+    Optional<User> findByEmail(String email);
+    Optional<User> findByDocumentNumber(String documentNumber);
     List<User> findAll();
     UUID update(UUID id, User user);
     UUID delete(UUID id);

@@ -17,12 +17,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class User extends BaseModel {
     private BasePeople people;
-    private String username;
     private String phoneNumber;
-    private String email;
-    private String password;
-    private Role role;
     private String jobTitle;
-    private Instant lastLogin;
     private Status status;
 }
