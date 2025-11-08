@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public abstract class BaseModel {
     private UUID id;

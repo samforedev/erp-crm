@@ -1,4 +1,4 @@
-package com.sam.insuranceservice.application.dto.common;
+package com.sam.insuranceservice.application.dto.common.response;
 
 import java.util.Map;
 

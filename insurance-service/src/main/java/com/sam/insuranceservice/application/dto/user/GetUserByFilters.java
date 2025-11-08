@@ -1,17 +1,14 @@
 package com.sam.insuranceservice.application.dto.user;
 
-
+import com.sam.insuranceservice.domain.model.enums.DocumentType;
 import com.sam.insuranceservice.domain.model.enums.Status;
 
-import java.util.List;
-import java.util.UUID;
-
-public record UserMinimalResponse(
-        UUID id,
+public record GetUserByFilters(
+        DocumentType documentType,
+        String documentNumber,
         String firstName,
+        String username,
         String email,
-        List<String> roles,
-        String jobTitle,
         Status status
 ) {
 }

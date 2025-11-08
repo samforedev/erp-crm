@@ -1,5 +1,6 @@
 package com.sam.insuranceservice.infraestructure.persistence.mapper;
 
+import com.sam.insuranceservice.domain.model.BasePeople;
 import com.sam.insuranceservice.domain.model.user.Permission;
 import com.sam.insuranceservice.domain.model.user.Role;
 import com.sam.insuranceservice.domain.model.user.User;
@@ -8,7 +9,9 @@ import com.sam.insuranceservice.infraestructure.persistence.entity.user.RoleEnti
 import com.sam.insuranceservice.infraestructure.persistence.entity.user.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.Mapping;
 
+import java.time.Instant;
 import java.util.stream.Collectors;
 
 @Component
@@ -57,6 +60,21 @@ public class UserMapper {
         user.setDeleted(entity.isDeleted());
 
         return user;
+    }
+
+    public void updateEntityFromDomain(User source, UserEntity target) {
+        target.setPhoneNumber(source.getPhoneNumber());
+        target.setJobTitle(source.getJobTitle());
+        target.setUsername(source.getUsername());
+        target.setUpdatedAt(Instant.now());
+
+        BasePeople sourcePeople = source.getPeople();
+
+        target.getPeople().setFirstName(sourcePeople.firstName());
+        target.getPeople().setLastName(sourcePeople.lastName());
+        target.getPeople().setDocumentType(sourcePeople.documentType());
+        target.getPeople().setDocumentNumber(sourcePeople.documentNumber());
+        target.getPeople().setBirthDate(sourcePeople.birthDate());
     }
 
     private Role roleToDomain(RoleEntity entity) {

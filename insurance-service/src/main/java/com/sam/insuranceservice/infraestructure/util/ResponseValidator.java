@@ -1,6 +1,6 @@
 package com.sam.insuranceservice.infraestructure.util;
 
-import com.sam.insuranceservice.application.dto.common.Response;
+import com.sam.insuranceservice.application.dto.common.response.Response;
 
 import java.util.HashMap;
 
