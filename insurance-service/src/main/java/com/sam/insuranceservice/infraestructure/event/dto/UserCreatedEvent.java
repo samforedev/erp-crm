@@ -1,17 +1,17 @@
-package com.sam.insuranceservice.application.dto.user;
+package com.sam.insuranceservice.infraestructure.event.dto;
 
 import com.sam.insuranceservice.domain.model.enums.DocumentType;
-import com.sam.insuranceservice.domain.model.enums.Role;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-public record UserCreationRequest(
+public record UserCreatedEvent(
+        UUID autUserId,
         String firstName,
         String lastName,
         DocumentType documentType,
         String documentNumber,
         LocalDate birthDate,
         String phoneNumber,
-        String jobTitle,
-        String status
+        String jobTitle
 ) { }

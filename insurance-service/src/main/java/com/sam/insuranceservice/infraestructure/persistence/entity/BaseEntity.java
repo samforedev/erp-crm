@@ -1,5 +1,6 @@
 package com.sam.insuranceservice.infraestructure.persistence.entity;
 
+import com.sam.insuranceservice.domain.model.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,9 @@ public abstract class BaseEntity {
     @LastModifiedDate
     @Column(nullable = false)
     private Instant updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     private boolean deleted = false;
 
