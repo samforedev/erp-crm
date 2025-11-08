@@ -32,6 +32,7 @@ public class UserMapper {
                 .roles(domainUser.getRoles().stream()
                         .map(_roleMapper::toEntity)
                         .collect(Collectors.toSet()))
+                .status(domainUser.getStatus())
                 .build();
     }
 
@@ -53,6 +54,7 @@ public class UserMapper {
         user.setRoles(entity.getRoles().stream()
                 .map(_roleMapper::toDomain)
                 .collect(Collectors.toSet()));
+        user.setStatus(entity.getStatus());
         return user;
     }
 }

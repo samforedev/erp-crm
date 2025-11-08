@@ -7,6 +7,7 @@ import com.sam.authservice.application.dto.common.Error;
 import com.sam.authservice.application.dto.common.Response;
 import com.sam.authservice.application.mapper.UserDtoMapper;
 import com.sam.authservice.application.service.IAuthApplicationService;
+import com.sam.authservice.domain.enums.Status;
 import com.sam.authservice.domain.model.User;
 import com.sam.authservice.domain.port.IJwtServicePort;
 import com.sam.authservice.domain.port.IUserRepositoryPort;
@@ -58,6 +59,7 @@ public class AuthApplicationService implements IAuthApplicationService {
             newUser.setRoles(Collections.singleton(_roleMapper.toDomain(roleEntity.get())));
             String hashedPassword = _passwordEncoder.encode(request.password());
             newUser.setPassword(hashedPassword);
+            newUser.setStatus(Status.ACTIVE);
             User userRegister = _userRepository.save(newUser);
 
             return Response.success(userRegister.getId(), "User created successfully");
