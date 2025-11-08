@@ -1,4 +1,4 @@
-package com.sam.insuranceservice.application.dto.common;
+package com.sam.authservice.application.dto.common;
 
 import java.util.Map;
 

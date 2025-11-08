@@ -1,5 +1,6 @@
-package com.sam.authservice.domain.model;
+package com.sam.insuranceservice.domain.model.user;
 
+import com.sam.insuranceservice.domain.model.BaseModel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

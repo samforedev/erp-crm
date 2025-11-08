@@ -1,4 +1,5 @@
-package com.sam.insuranceservice.application.dto.common;
+package com.sam.authservice.application.dto.common;
+
 
 public record Response<T>(
         boolean success,

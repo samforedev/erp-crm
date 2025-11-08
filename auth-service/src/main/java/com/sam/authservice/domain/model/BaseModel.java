@@ -1,5 +1,6 @@
 package com.sam.authservice.domain.model;
 
+import com.sam.authservice.domain.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public abstract class BaseModel {
     private UUID id;
+    private Status status;
     private Instant createdAt;
     private Instant updatedAt;
     private boolean isDeleted;

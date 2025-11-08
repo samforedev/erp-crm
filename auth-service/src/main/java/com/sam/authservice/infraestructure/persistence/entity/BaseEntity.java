@@ -1,5 +1,6 @@
 package com.sam.authservice.infraestructure.persistence.entity;
 
+import com.sam.authservice.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,10 @@ public abstract class BaseEntity {
     @Column(nullable = false)
     private Instant updatedAt;
 
-    private boolean isDeleted = false;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    private boolean deleted = false;
 
     @PrePersist
     protected void onCreate() {

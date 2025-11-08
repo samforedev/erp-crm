@@ -18,7 +18,7 @@ public class CustomerMapper {
                 .id(domainCustomer.getId())
                 .createdAt(domainCustomer.getCreatedAt())
                 .updatedAt(domainCustomer.getUpdatedAt())
-                .isDeleted(domainCustomer.isDeleted())
+                .deleted(domainCustomer.isDeleted())
                 .people(_commonsMapper.toEmbeddable(domainCustomer.getPeople()))
                 .email(domainCustomer.getEmail())
                 .phoneNumber(domainCustomer.getPhoneNumber())

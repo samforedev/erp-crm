@@ -1,6 +1,6 @@
 package com.sam.insuranceservice.infraestructure.service;
 
-import com.sam.insuranceservice.application.dto.common.Response;
+import com.sam.insuranceservice.application.dto.common.response.Response;
 import com.sam.insuranceservice.application.dto.customer.CustomerCreationRequest;
 import com.sam.insuranceservice.application.dto.customer.CustomerMinimalResponse;
 import com.sam.insuranceservice.application.dto.customer.CustomerResponse;
