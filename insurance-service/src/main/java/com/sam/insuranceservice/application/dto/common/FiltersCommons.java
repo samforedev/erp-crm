@@ -1,9 +1,9 @@
-package com.sam.insuranceservice.application.dto.user;
+package com.sam.insuranceservice.application.dto.common;
 
 import com.sam.insuranceservice.domain.model.enums.DocumentType;
 import com.sam.insuranceservice.domain.model.enums.Status;
 
-public record GetUserByFilters(
+public record FiltersCommons(
         DocumentType documentType,
         String documentNumber,
         String firstName,

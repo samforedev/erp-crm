@@ -11,7 +11,7 @@ public class CustomerMapper {
 
     private final CommonsMapper _commonsMapper;
 
-    public CustomerEntity toJpaEntity(Customer domainCustomer) {
+    public CustomerEntity toEntity(Customer domainCustomer) {
         if (domainCustomer == null) return null;
 
         return CustomerEntity.builder()
@@ -24,6 +24,8 @@ public class CustomerMapper {
                 .phoneNumber(domainCustomer.getPhoneNumber())
                 .assignedAgentId(domainCustomer.getAssignedAgentId())
                 .customerStatus(domainCustomer.getCustomerStatus())
+                .status(domainCustomer.getStatus())
+                .deleted(domainCustomer.isDeleted())
                 .build();
     }
 
@@ -39,6 +41,8 @@ public class CustomerMapper {
         customer.setPhoneNumber(entity.getPhoneNumber());
         customer.setAssignedAgentId(entity.getAssignedAgentId());
         customer.setCustomerStatus(entity.getCustomerStatus());
+        customer.setStatus(entity.getStatus());
+        customer.setDeleted(entity.isDeleted());
 
         return customer;
     }

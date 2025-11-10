@@ -2,6 +2,7 @@ package com.sam.insuranceservice.infraestructure.service;
 
 import com.sam.insuranceservice.application.dto.common.ChangeStatusResponse;
 import com.sam.insuranceservice.application.dto.common.EntityIdResponse;
+import com.sam.insuranceservice.application.dto.common.FiltersCommons;
 import com.sam.insuranceservice.application.dto.common.StatusCommons;
 import com.sam.insuranceservice.application.dto.common.response.Error;
 import com.sam.insuranceservice.application.dto.common.response.Response;
@@ -62,7 +63,7 @@ public class UserApplicationService implements IUserApplicationService {
     }
 
     @Override
-    public Response<List<UserMinimalResponse>> findAllUsersByFilters(GetUserByFilters request) {
+    public Response<List<UserMinimalResponse>> findAllUsersByFilters(FiltersCommons request) {
         try {
             List<User> usersFound = _userRepositoryPort.findAllByFilters(request);
             if (usersFound.isEmpty())

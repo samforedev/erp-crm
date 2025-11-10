@@ -9,13 +9,13 @@ import java.util.UUID;
 
 public record CustomerResponse(
         UUID id,
+        BasePeople people,
         String email,
         String phoneNumber,
         UUID assignedAgentId,
         CustomerStatus customerStatus,
         Status status,
         Instant createdAt,
-        BasePeople people,
         boolean isDeleted
 ) {
 }

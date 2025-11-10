@@ -1,6 +1,6 @@
 package com.sam.insuranceservice.domain.port;
 
-import com.sam.insuranceservice.application.dto.user.GetUserByFilters;
+import com.sam.insuranceservice.application.dto.common.FiltersCommons;
 import com.sam.insuranceservice.domain.model.enums.Status;
 import com.sam.insuranceservice.domain.model.user.User;
 
@@ -14,7 +14,7 @@ public interface IUserRepositoryPort {
     Optional<User> findByUsername(String username, Status status);
     Optional<User> findByEmail(String email, Status status);
     List<User> findAll(Status status);
-    List<User> findAllByFilters(GetUserByFilters request);
+    List<User> findAllByFilters(FiltersCommons request);
     int changeUserStatus(UUID id, Status status);
     UUID deleteOne(UUID id);
 }
