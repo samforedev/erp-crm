@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class Customer extends BaseModel {
     private BasePeople people;

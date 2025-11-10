@@ -2,6 +2,7 @@ package com.sam.insuranceservice.infraestructure.controller;
 
 import com.sam.insuranceservice.application.dto.common.ChangeStatusResponse;
 import com.sam.insuranceservice.application.dto.common.EntityIdResponse;
+import com.sam.insuranceservice.application.dto.common.FiltersCommons;
 import com.sam.insuranceservice.application.dto.common.StatusCommons;
 import com.sam.insuranceservice.application.dto.common.response.Response;
 import com.sam.insuranceservice.application.dto.user.*;
@@ -40,7 +41,7 @@ public class UserController {
 
     @PostMapping("/getByFilters")
     @PreAuthorize("hasAnyAuthority('USER_READ')")
-    public ResponseEntity<Object> getByFilters(@Validated @RequestBody GetUserByFilters request) {
+    public ResponseEntity<Object> getByFilters(@Validated @RequestBody FiltersCommons request) {
         Response<List<UserMinimalResponse>> serviceResult = _userApplicationService.findAllUsersByFilters(request);
         return ResponseEntity.ok(ResponseValidator.validator(serviceResult));
     }

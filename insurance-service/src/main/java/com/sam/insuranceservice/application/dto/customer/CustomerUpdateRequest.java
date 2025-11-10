@@ -1,12 +1,10 @@
 package com.sam.insuranceservice.application.dto.customer;
 
-import com.sam.insuranceservice.domain.model.enums.CustomerStatus;
 import com.sam.insuranceservice.domain.model.enums.DocumentType;
-import com.sam.insuranceservice.domain.model.enums.Status;
 
 import java.time.LocalDate;
 
-public record CustomerCreationRequest (
+public record CustomerUpdateRequest(
         String firstName,
         String lastName,
         DocumentType documentType,
@@ -14,4 +12,5 @@ public record CustomerCreationRequest (
         LocalDate birthDate,
         String email,
         String phoneNumber
-) { }
+) {
+}

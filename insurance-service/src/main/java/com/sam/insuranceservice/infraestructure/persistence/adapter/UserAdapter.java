@@ -1,12 +1,13 @@
 package com.sam.insuranceservice.infraestructure.persistence.adapter;
 
-import com.sam.insuranceservice.application.dto.user.GetUserByFilters;
+import com.sam.insuranceservice.application.dto.common.FiltersCommons;
 import com.sam.insuranceservice.domain.model.enums.Status;
 import com.sam.insuranceservice.domain.model.user.User;
 import com.sam.insuranceservice.domain.port.IUserRepositoryPort;
 import com.sam.insuranceservice.infraestructure.persistence.entity.user.UserEntity;
 import com.sam.insuranceservice.infraestructure.persistence.mapper.UserMapper;
 import com.sam.insuranceservice.infraestructure.persistence.repository.IUserJpaRepository;
+import com.sam.insuranceservice.infraestructure.util.BuildsSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,6 @@ public class UserAdapter implements IUserRepositoryPort {
     private final IUserJpaRepository _userJpaRepository;
     private final UserMapper _userMapper;
 
-    private final String PEOPLE = "people";
 
     @Override
     public User save(User user) {
@@ -76,8 +76,8 @@ public class UserAdapter implements IUserRepositoryPort {
     }
 
     @Override
-    public List<User> findAllByFilters(GetUserByFilters request) {
-        Specification<UserEntity> spec = buildSpecification(request);
+    public List<User> findAllByFilters(FiltersCommons request) {
+        Specification<UserEntity> spec = BuildsSpecification.buildFiltersCommons(request);
         List<UserEntity> result = _userJpaRepository.findAll(spec);
         return result.stream()
                 .map(_userMapper::toDomain)
@@ -87,48 +87,6 @@ public class UserAdapter implements IUserRepositoryPort {
     @Override
     public int changeUserStatus(UUID id, Status status) {
          return _userJpaRepository.updateStatusByIdAndIsDeletedFalse(id, status);
-    }
-
-    private Specification<UserEntity> buildSpecification(GetUserByFilters filters) {
-        Specification<UserEntity> spec = (root, query, cb) -> cb.equal(root.get("deleted"), false);
-
-        if (filters.documentType() != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get(PEOPLE).get("documentType"), filters.documentType())
-            );
-        }
-
-        if (filters.documentNumber() != null && !filters.documentNumber().isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(root.get(PEOPLE).get("documentNumber"), "%" + filters.documentNumber() + "%")
-            );
-        }
-
-        if (filters.firstName() != null && !filters.firstName().isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get(PEOPLE).get("firstName")), "%" + filters.firstName().toLowerCase() + "%")
-            );
-        }
-
-        if (filters.username() != null && !filters.username().isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("username")), "%" + filters.username().toLowerCase() + "%")
-            );
-        }
-
-        if (filters.email() != null && !filters.email().isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("email")), "%" + filters.email().toLowerCase() + "%")
-            );
-        }
-
-        if (filters.status() != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(root.get("status"), "%" + filters.status() + "%")
-            );
-        }
-
-        return spec;
     }
 
 }
