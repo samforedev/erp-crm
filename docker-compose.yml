@@ -27,5 +27,15 @@ services:
     env_file:
       - ./docker.env
 
+  erp-crm-InsuranceService:
+    image: samfordev/erp-crm-insurance-service:0.0.1
+    container_name: erp-crm-insurance-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres-develop
+    env_file:
+      - ./docker.env
+
 volumes:
   postgres_data:
