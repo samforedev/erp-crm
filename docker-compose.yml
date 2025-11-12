@@ -1,29 +1,9 @@
 services:
-  postgres-develop:
-    image: postgres:latest
-    container_name: postgres-database
-    env_file: ./docker.env
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: erp-crm-rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    env_file:
-      - ./docker.env
-
   erp-crm-AuthService:
     image: samfordev/erp-crm-auth-service:0.0.1
     container_name: erp-crm-auth-service
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres-develop
     env_file:
       - ./docker.env
 
@@ -32,8 +12,6 @@ services:
     container_name: erp-crm-insurance-service
     ports:
       - "8081:8081"
-    depends_on:
-      - postgres-develop
     env_file:
       - ./docker.env
 
